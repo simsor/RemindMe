@@ -9,9 +9,9 @@ using System.Resources;
 [assembly: AssemblyTitle("RemindMe")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Simon Garrelou")]
 [assembly: AssemblyProduct("RemindMe")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright Simon Garrelou 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,7 +34,7 @@ using System.Resources;
 // en utilisant '*', comme indiqué ci-dessous :
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: NeutralResourcesLanguageAttribute("fr-FR")]
+[assembly: NeutralResourcesLanguageAttribute("en-US")]
 
 
 //[assembly: InternalsVisibleTo("System.Runtime.Serialization")]
