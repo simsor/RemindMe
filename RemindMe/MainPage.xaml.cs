@@ -25,6 +25,15 @@ namespace RemindMe
             // Affecter l'exemple de données au contexte de données du contrôle LongListSelector
             DataContext = App.ViewModel;
 
+            try
+            {
+               this.NavigationService.RemoveBackEntry();// This way, the user can't "back" to Add.xaml or DetailsPage.xaml
+            }
+            catch
+            {
+                // First run
+            }
+
             // Exemple de code pour la localisation d'ApplicationBar
             //BuildLocalizedApplicationBar();
 
@@ -47,6 +56,7 @@ namespace RemindMe
             {
                 App.ViewModel.LoadData();
             }
+            NavigationService.RemoveBackEntry();
         }
 
         // Gérer la sélection modifiée sur LongListSelector

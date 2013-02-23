@@ -15,7 +15,7 @@
     shell:SystemTray.IsVisible="True">
 
     <!--L'exemple de données ci-dessus est affecté au contexte de données et LayoutRoot contient la grille racine où tout le contenu des autres pages est placé-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="#FF68217A">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

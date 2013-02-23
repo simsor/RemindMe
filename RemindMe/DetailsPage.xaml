@@ -15,7 +15,7 @@
     shell:SystemTray.IsVisible="True">
 
     <!--L'exemple de données ci-dessus et le premier élément de l'exemple de collecte de données ci-dessous sont affectés au contexte de données et LayoutRoot contient la grille racine où tout le contenu des autres pages est placé-->
-    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{Binding Items[0]}">
+    <Grid x:Name="LayoutRoot" Background="#FF5A217A" d:DataContext="{Binding Items[0]}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -28,18 +28,22 @@
         </StackPanel>
 
         <!--ContentPanel contient le texte des détails. Placez tout contenu supplémentaire ici-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock Text="Last time you did that:" />
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,10">
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="223*"/>
+        		<ColumnDefinition Width="233*"/>
+        	</Grid.ColumnDefinitions>
+            <TextBlock Text="Last time you did that:" FontSize="24" Margin="10,39,10,446" Grid.ColumnSpan="2" />
         </Grid>
-        <Grid x:Name="ContentPanel2" Grid.Row="1" Margin="12,25,12,0">
-            <TextBlock Text="{Binding LineThree}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
+        <Grid x:Name="ContentPanel2" Grid.Row="1" Margin="12,29,12,317">
+            <TextBlock Text="{Binding LineThree}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" FontSize="21.333" Margin="10,54,10,0"/>
         </Grid>
         <!--<Grid x:Name="renew_button_grid" Grid.Row="2" Margin="80,0,12,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions> -->
-        <Button Content="I did it again" Click="Button_Click_1" HorizontalAlignment="Center" Height="109" Grid.Row="1" VerticalAlignment="Center" Width="325" Margin="0,20,0,0"/>
+        <Button Content="I did it again" Click="Button_Click_1" HorizontalAlignment="Center" Height="109" Grid.Row="1" VerticalAlignment="Center" Width="380" Margin="50,299,50,127" FontSize="26.667" RenderTransformOrigin="0.483,1.064"/>
         
         <TextBlock Text="{Binding ID}" Visibility="Collapsed" x:Name="page_ID"/>
         <!--</Grid> -->

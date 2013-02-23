@@ -82,26 +82,31 @@ namespace RemindMe.ViewModels
 
             List<RemindEvent> evenements = (List<RemindEvent>)IsolatedStorageSettings.ApplicationSettings["events"];
             mutex.ReleaseMutex();
-            int i = 0;
             //this.Items.Add(new ItemViewModel() { ID = "0", LineOne = "runtime one", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
-            while (i < evenements.Count)
+            for (int i = 0; i < evenements.Count; i++)
             {
                 TimeSpan timeDiff = DateTime.Now.Subtract(evenements[i].lastTime);
                 String finalLastTime = "";
+                String shortLastTime = "";
                 String finalRepeatEvery = "";
                 if (timeDiff.TotalDays < 1)
                 {
                     // TIMEDIFF CALCULATION
                     if (timeDiff.TotalHours < 1)
                     {
-                        if (timeDiff.TotalSeconds < 60)
+                        if (timeDiff.TotalSeconds < 60) {
                             finalLastTime = evenements[i].lastTime.ToString() + "\n" + "This was " + Math.Round(timeDiff.TotalSeconds) + "s ago";
-                        else
-                            finalLastTime = evenements[i].lastTime.ToString() + "\n" + "This was " + Math.Round(timeDiff.TotalSeconds / 60, 1) + "min ago";
+                            shortLastTime = Math.Round(timeDiff.TotalSeconds) + " s";
+                        }
+                        else {
+                            finalLastTime = evenements[i].lastTime.ToString() + "\n" + "This was " + Math.Round(timeDiff.TotalSeconds / 60) + "min " + Math.Round(timeDiff.TotalSeconds - Math.Round(timeDiff.TotalSeconds / 60) * 60) + "s ago";
+                            shortLastTime = Math.Round(timeDiff.TotalSeconds / 60) + " min";
+                        }
                     }
-                    else
-                        finalLastTime = evenements[i].lastTime.ToString() + "\n" + "This was " + Math.Round(timeDiff.TotalHours, 1) + "h ago";
-
+                    else {
+                        finalLastTime = evenements[i].lastTime.ToString() + "\n" + "This was " + Math.Round(timeDiff.TotalHours, 1) + "h " + (Math.Round(timeDiff.TotalSeconds / 60) - Math.Round(timeDiff.TotalHours, 1) * 60) + "min " + Math.Round(timeDiff.TotalSeconds - Math.Round(timeDiff.TotalSeconds / 60) * 60) + "s ago";
+                        shortLastTime = Math.Round(timeDiff.TotalHours, 1) + " h";
+                    }
                     // REPEATEVERY CALCULATION
                     if (evenements[i].repeatEvery.TotalDays < 1)
                         finalRepeatEvery = evenements[i].repeatEvery.TotalHours.ToString() + "h";
@@ -111,36 +116,31 @@ namespace RemindMe.ViewModels
                             finalRepeatEvery = evenements[i].repeatEvery.TotalDays.ToString() + " days";
                         else
                         {
-                            if (evenements[i].repeatEvery.TotalDays < 365)
-                                finalRepeatEvery = Math.Round(evenements[i].repeatEvery.TotalDays/30, 1).ToString() + " months";
+                            if (evenements[i].repeatEvery.TotalDays < 365)finalRepeatEvery = Math.Round(evenements[i].repeatEvery.TotalDays / 30, 1).ToString() + " months";
                             else
-                                finalRepeatEvery = Math.Round(evenements[i].repeatEvery.TotalDays/365, 1).ToString() + " years";
+                                finalRepeatEvery = Math.Round(evenements[i].repeatEvery.TotalDays / 365, 1).ToString() + " years";
                         }
                     }
                 }
                 else
                     finalLastTime = evenements[i].lastTime.ToString() + "\n" + "This was " + timeDiff.TotalDays + " days ago";
 
-                temporary_model.Add(new ItemViewModel() { ID = i.ToString(), LineOne = evenements[i].label, LineTwo = "Repeat every " + finalRepeatEvery, LineThree = finalLastTime, LastTime = evenements[i].lastTime, RepeatEvery = evenements[i].repeatEvery });
-                i++;
+                temporary_model.Add(new ItemViewModel() { ID = i.ToString(), LineOne = evenements[i].label, LineTwo = shortLastTime + " ago, every " + finalRepeatEvery, LineThree = finalLastTime, LastTime = evenements[i].lastTime, RepeatEvery = evenements[i].repeatEvery });
             }
 
-            double closestTime = 999999999;
-            int closestTimeId = 0;
-            while (temporary_model.Count != 0)
+            while (temporary_model.Count > 0)
             {
-                while (i < temporary_model.Count)
+                long closestTime = 999999999999999999;
+                int closestTimeId = 0;
+                for (int j = 0; j < temporary_model.Count; j++)
                 {
-                    if (temporary_model[i].LastTime.Subtract(temporary_model[i].LastTime).TotalDays < closestTime)
+                    if ((temporary_model[j].LastTime.Ticks + temporary_model[j].RepeatEvery.Ticks) < closestTime)
                     {
-                        closestTime = temporary_model[i].LastTime.Subtract(temporary_model[i].LastTime).TotalDays;
-                        closestTimeId = i;
+                        closestTime = temporary_model[j].LastTime.Ticks + temporary_model[j].RepeatEvery.Ticks;
+                        closestTimeId = j;
                     }
-
-                    i++;
                 }
                 this.Items.Add(temporary_model[closestTimeId]);
-                closestTime = 999999999;
                 temporary_model.RemoveAt(closestTimeId);
             }
 
