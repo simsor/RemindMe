@@ -58,7 +58,7 @@ namespace RemindMe
             if (Debugger.IsAttached)
             {
                 // Affichez les compteurs de fréquence des trames actuels.
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+                Application.Current.Host.Settings.EnableFrameRateCounter = false;
 
                 // Affichez les zones de l'application qui sont redessinées dans chaque frame.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;

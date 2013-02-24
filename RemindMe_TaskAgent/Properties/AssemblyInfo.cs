@@ -9,9 +9,9 @@ using System.Resources;
 [assembly: AssemblyTitle("RemindMe_TaskAgent")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Simon Garrelou")]
 [assembly: AssemblyProduct("RemindMe_TaskAgent")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright Simon Garrelou 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
